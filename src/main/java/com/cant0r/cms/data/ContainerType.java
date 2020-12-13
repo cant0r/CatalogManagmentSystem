@@ -16,4 +16,8 @@ public class ContainerType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String name;
     private String description;
+
+    public ContainerType() {
+
+    }
 }
