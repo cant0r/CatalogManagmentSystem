@@ -1,2 +1,4 @@
-package com.cant0r.cms.data;public class ContainerRepository {
+package com.cant0r.cms.data;
+
+public class ContainerRepository {
 }

@@ -22,6 +22,11 @@ public class CMSSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .mvcMatchers("/hello")
-                    .permitAll();
+                    .permitAll()
+                .mvcMatchers("/api/types").hasRole("ADMIN")
+                .mvcMatchers("/api/entries").authenticated()
+                .mvcMatchers("/api/containers").authenticated()
+                .mvcMatchers("/api/mediums").authenticated()
+                .anyRequest().permitAll();
     }
 }

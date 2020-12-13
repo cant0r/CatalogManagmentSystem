@@ -1,0 +1,13 @@
+How shoudl the api look like?
+
+There should be 4 pages, 3 for Users and Admins, and just 1 or maybe antoher for Admins.
+
+User can manipulate the Entry, Medium, and Container tables. Admin can also do it ofc but Admin has access to the Type table (and maybe to Login tables?)
+
+Base should be /api
+
+Example in case of Entry:
+
+/api/entry/all?page=n -- select *, size max 10, idk
+/api/entry/ body: id --crud operations
+/api/entry/erase
