@@ -3,6 +3,7 @@ package com.cant0r.cms.data;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -13,7 +14,10 @@ public class Container {
     private String name;
     private String location;
     private int capacity;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "type_id", referencedColumnName = "name")
     private ContainerType type;
+
+    @OneToMany
+    private List<Medium> mediums;
 }

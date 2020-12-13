@@ -3,10 +3,8 @@ package com.cant0r.cms.data;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,6 +14,10 @@ public class ContainerType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String name;
     private String description;
+
+    @OneToMany
+    private List<Container> containers;
+
 
     public ContainerType() {
 

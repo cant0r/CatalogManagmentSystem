@@ -3,6 +3,7 @@ package com.cant0r.cms.data;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,4 +16,6 @@ public class Medium {
 
     @ManyToOne
     private Container container;
+    @OneToMany
+    private List<Entry> entries;
 }
