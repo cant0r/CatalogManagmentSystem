@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface MediumRepository extends JpaRepository<Medium,Integer> {
-    Page<Medium> findAll(Pageable p);
 
-    @Query("SELECT m FROM Medium m WHERE m.id = :id")
-    Page<Medium> findByEntry(@Param("id")int id);
+    @Query(value = "SELECT m FROM Medium m JOIN m.container c WHERE m.name like :name or m.capacity <= :cap or c.name LIKE :containerName")
+    Page<Medium> findAllByParams(@Param("cap")int cap,@Param("name")String name, @Param("containerName")String containerName, Pageable pageable);
+
 }
