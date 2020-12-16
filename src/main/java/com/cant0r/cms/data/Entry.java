@@ -6,12 +6,15 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@Table(name = "Entry", schema = "data")
 public class Entry {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String name;
-    private int size;
+    public int id;
+    @Column
+    public String name;
+    @Column
+    public int size;
     @ManyToOne
-    private Medium medium;
+    public Medium medium;
 }

@@ -62,7 +62,7 @@ public class EntryController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Entry> getAllEntry(@RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "10") int entries) {
         try{
             Pageable p = PageRequest.of(pageNumber,entries);
@@ -72,7 +72,7 @@ public class EntryController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
-    @GetMapping
+    @GetMapping("/all-params")
     public List<Entry> getAllEntry(
             @RequestParam(defaultValue = "%")String n,
             @RequestParam(defaultValue = "7000000")int s,

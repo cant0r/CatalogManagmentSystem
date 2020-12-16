@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface ContainerTypeRepository extends JpaRepository<ContainerType, String> {
     @Query(value = "SELECT c FROM ContainerType c WHERE c.name LIKE :name or c.description LIKE :desc")
-    Page<ContainerType> findAllByParams(@Param("name")String name, @Param("desc")String desc, Pageable pageable);
+    public Page<ContainerType> findAllByParams(@Param("name")String name, @Param("desc")String desc, Pageable pageable);
 
 }

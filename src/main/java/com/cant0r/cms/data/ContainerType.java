@@ -9,14 +9,16 @@ import java.util.List;
 @Entity
 @Data
 @AllArgsConstructor
+@Table(name = "ContainerType", schema = "data")
 public class ContainerType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String name;
-    private String description;
+    public String name;
+    @Column
+    public String description;
 
     @OneToMany
-    private List<Container> containers;
+    public List<Container> containers;
 
 
     public ContainerType() {

@@ -17,13 +17,14 @@ import java.util.List;
 public class ContainerTypeController {
 
     @Autowired
-    private ContainerTypeRepository repo;
+    public ContainerTypeRepository repo;
 
     @GetMapping
     public long countContainerTypes(@RequestParam boolean count) {
         if(count) {
             try{
-                return repo.count();
+                long l = repo.count();
+                return l;
             }
             catch(Exception e) {
                 throw new ResponseStatusException(HttpStatus.OK, "Bad request!!");
@@ -64,17 +65,18 @@ public class ContainerTypeController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<ContainerType> getAllCTs(@RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "10") int entries) {
         try{
             Pageable p = PageRequest.of(pageNumber,entries);
-            return repo.findAll(p).getContent();
+            List<ContainerType> l = repo.findAll(p).getContent();
+            return l;
         }
         catch(Exception e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
-    @GetMapping
+    @GetMapping("/all-params")
     public List<ContainerType> getAllCTs(
             @RequestParam(defaultValue = "%")String n,
             @RequestParam(defaultValue = "%")String d,

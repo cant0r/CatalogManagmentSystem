@@ -62,7 +62,7 @@ public class ContainerController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Container> getAll(@RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "10") int entries) {
         try{
             Pageable p = PageRequest.of(pageNumber,entries);
@@ -72,7 +72,7 @@ public class ContainerController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
-    @GetMapping
+    @GetMapping("/all-params")
     public List<Container> getAll(
             @RequestParam(defaultValue = "%")String t,
             @RequestParam(defaultValue = "%")String n,

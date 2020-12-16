@@ -7,15 +7,18 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name = "Medium", schema = "data")
 public class Medium {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String name;
-    private int capacity;
+    public int id;
+    @Column
+    public String name;
+    @Column
+    public int capacity;
 
     @ManyToOne
-    private Container container;
+    public Container container;
     @OneToMany
-    private List<Entry> entries;
+    public List<Entry> entries;
 }

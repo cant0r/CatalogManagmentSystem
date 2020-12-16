@@ -64,7 +64,7 @@ public class MediumController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Medium> getAllMediums(@RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "10") int entries) {
         try{
             Pageable p = PageRequest.of(pageNumber,entries);
@@ -74,7 +74,7 @@ public class MediumController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
-    @GetMapping
+    @GetMapping("/all-params")
     public List<Medium> getAllMediums(
             @RequestParam(defaultValue = "%")String n,
             @RequestParam(defaultValue = "7000000")int s,
