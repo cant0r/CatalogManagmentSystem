@@ -1,24 +1,34 @@
 package com.cant0r.cms.data;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Medium", schema = "data")
 public class Medium {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public int id;
+    private int id;
     @Column
-    public String name;
+    private String name;
     @Column
-    public int capacity;
+    private int capacity;
 
     @ManyToOne
-    public Container container;
+    @JoinColumn(name = "container_id", referencedColumnName = "id")
+    @NonNull
+    private Container container;
+
     @OneToMany
-    public List<Entry> entries;
+    private List<Entry> entries;
 }

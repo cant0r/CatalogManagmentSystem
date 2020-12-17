@@ -1,20 +1,29 @@
 package com.cant0r.cms.data;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JoinColumnOrFormula;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Entry", schema = "data")
 public class Entry {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public int id;
+    private int id;
     @Column
-    public String name;
+    private String name;
     @Column
-    public int size;
+    private int size;
+
     @ManyToOne
-    public Medium medium;
+    @JoinColumn(name = "medium_id", referencedColumnName = "id")
+    @NonNull
+    private Medium medium;
 }

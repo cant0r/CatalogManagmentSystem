@@ -1,27 +1,34 @@
 package com.cant0r.cms.data;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Container", schema = "data")
 public class Container {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public int id;
+    private int id;
     @Column
-    public String name;
+    private String name;
     @Column
-    public String location;
+    private String location;
     @Column
-    public int capacity;
+    private int capacity;
+
     @ManyToOne
     @JoinColumn(name = "type_id", referencedColumnName = "name")
-    public ContainerType type;
+    private ContainerType type;
+
 
     @OneToMany
-    public List<Medium> mediums;
+    private List<Medium> mediums;
 }
