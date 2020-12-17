@@ -1,1 +1,66 @@
-<p>entry-view works!</p>
+<div class="d-flex justify-content-end">
+    <button type="button" (click)="onNewClick()" class="btn btn-primary">Új</button>
+    <button type="button" (click)="onSaveClick()" class="btn btn-warning">Mentés</button>
+</div>
+
+<div class=" table-responsive ">
+    <table class="table table-hover">
+        <thead>
+            <tr class="">
+                <th class="w-10">Id</th>
+                <th class="w-25" >Név</th>
+                <th class="w-25">Méret</th>
+                <th class="w-25">Tároló</th>
+                <th class="w-25">Műveletek</th>
+            </tr>
+        </thead>
+        <tbody>  
+            <tr>
+                <th class="w-10"></th>
+                <th class="w-25">
+                    <input type="text" [(ngModel)]="name" class="form-control" placeholder="név">
+                </th>
+                <th class="w-25">
+                    <input type="number" [(ngModel)]="size" class="form-control" placeholder="méret">
+                </th>
+                <th class="w-25">
+                    <input type="number" [(ngModel)]="medium_id" class="form-control" placeholder="tároló">
+                </th>
+                <th  class="w-25">
+                    
+                    <button type="button" (click)="onSearchClick()" class="btn btn-info">Keresés</button>
+                </th>
+            </tr>       
+            <tr *ngFor="let container of entries; let i = index">
+                <th class="w-10">
+                    {{container.id}}
+                </th>
+                <th class="w-25">
+                    <input type="text" class="form-control" [(ngModel)]="container.name" value="{{container.name}}" placeholder="név">
+                </th>
+                <th class="w-25">
+                    <input type="number" class="form-control" [(ngModel)]="container.size" value="{{container.size}}" placeholder="méret">
+                </th>
+                <th class="w-25">
+                    <input type="number" class="form-control" [(ngModel)]="container.medium.id" value="{{container.medium.id}}" placeholder="tároló">
+                </th>
+                <th  class="w-25">
+                    <button type="button" (click)="onDangerClick(i)" class="btn btn-danger">Törlés</button>
+                </th>
+            </tr>     
+            <tr>
+                <th class="w-10"></th>
+                <th class="w-25">
+                </th>
+                <th class="w-25">
+                </th>
+                <th class="w-25">
+                </th>
+                <th  class="w-25">
+                    <button type="button" (click)="onPreviousClick()" class="btn btn-dark">Hátra</button>
+                    <button type="button" (click)="onNextClick()" class="btn btn-dark">Előre</button>
+                </th>
+            </tr>                 
+        </tbody>
+    </table>
+</div>
