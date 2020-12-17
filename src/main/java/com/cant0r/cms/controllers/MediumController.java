@@ -13,11 +13,15 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/mediums")
 public class MediumController {
     @Autowired
     private MediumRepository repo;
+
+    @Autowired
+    private EntryRepository entryRepo;
 
     @GetMapping
     public long countMediums(@RequestParam boolean count) {
@@ -55,12 +59,13 @@ public class MediumController {
     }
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteMediumByName(@RequestParam int id) {
+    public void deleteMediumByName(@PathVariable("id") int id) {
         try{
+            entryRepo.deleteAll(entryRepo.findAllByMediumId(id));
             repo.deleteById(id);
         }
         catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There's nothing to delete!");
+            throw new ResponseStatusException(HttpStatus.OK, "There's nothing to delete!");
         }
     }
 
@@ -76,9 +81,9 @@ public class MediumController {
     }
     @GetMapping("/all-params")
     public List<Medium> getAllMediums(
-            @RequestParam(defaultValue = "%")String n,
+            @RequestParam(defaultValue = "")String n,
             @RequestParam(defaultValue = "7000000")int s,
-            @RequestParam(defaultValue = "%")String containerName,
+            @RequestParam(defaultValue = "")String containerName,
             @RequestParam(defaultValue = "0") int pageNumber,
             @RequestParam(defaultValue = "10") int entries) {
         try{

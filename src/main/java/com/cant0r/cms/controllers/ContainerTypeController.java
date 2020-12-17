@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/types")
 public class ContainerTypeController {
@@ -56,12 +57,12 @@ public class ContainerTypeController {
     }
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteContainerTypeByName(@RequestParam String cName) {
+    public void deleteContainerTypeByName(@PathVariable("id") String cName) {
         try{
             repo.deleteById(cName);
         }
         catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There's nothing to delete!");
+            throw new ResponseStatusException(HttpStatus.OK, "There's nothing to delete!");
         }
     }
 
@@ -78,8 +79,8 @@ public class ContainerTypeController {
     }
     @GetMapping("/all-params")
     public List<ContainerType> getAllCTs(
-            @RequestParam(defaultValue = "%")String n,
-            @RequestParam(defaultValue = "%")String d,
+            @RequestParam(defaultValue = "")String n,
+            @RequestParam(defaultValue = "")String d,
             @RequestParam(defaultValue = "0") int pageNumber,
             @RequestParam(defaultValue = "10") int entries) {
         try{

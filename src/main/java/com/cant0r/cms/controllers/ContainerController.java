@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/containers")
 public class ContainerController {
@@ -53,12 +54,12 @@ public class ContainerController {
     }
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteContainerById(@RequestParam int c_id) {
+    public void deleteContainerById(@PathVariable("id") int c_id) {
         try{
             repo.deleteById(c_id);
         }
         catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There's nothing to delete!");
+            throw new ResponseStatusException(HttpStatus.OK, "There's nothing to delete!");
         }
     }
 
@@ -74,9 +75,9 @@ public class ContainerController {
     }
     @GetMapping("/all-params")
     public List<Container> getAll(
-            @RequestParam(defaultValue = "%")String t,
-            @RequestParam(defaultValue = "%")String n,
-            @RequestParam(defaultValue = "%")String l,
+            @RequestParam(defaultValue = "")String t,
+            @RequestParam(defaultValue = "")String n,
+            @RequestParam(defaultValue = "")String l,
             @RequestParam(defaultValue = "60000000")int c,
             @RequestParam(defaultValue = "0") int pageNumber,
                                   @RequestParam(defaultValue = "10") int entries) {

@@ -11,11 +11,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/entries")
 public class EntryController {
     @Autowired
     private EntryRepository repo;
+
 
     @GetMapping
     public long countEntries(@RequestParam boolean count) {
@@ -53,12 +55,13 @@ public class EntryController {
     }
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteEntryByName(@RequestParam int id) {
+    public void deleteEntryByName(@PathVariable("id") int id) {
         try{
+
             repo.deleteById(id);
         }
         catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There's nothing to delete!");
+            throw new ResponseStatusException(HttpStatus.OK, "There's nothing to delete!");
         }
     }
 
@@ -74,9 +77,9 @@ public class EntryController {
     }
     @GetMapping("/all-params")
     public List<Entry> getAllEntry(
-            @RequestParam(defaultValue = "%")String n,
+            @RequestParam(defaultValue = "")String n,
             @RequestParam(defaultValue = "7000000")int s,
-            @RequestParam(defaultValue = "%")String discName,
+            @RequestParam(defaultValue = "")String discName,
             @RequestParam(defaultValue = "0") int pageNumber,
             @RequestParam(defaultValue = "10") int entries) {
         try{
