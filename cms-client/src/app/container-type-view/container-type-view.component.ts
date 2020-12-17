@@ -9,10 +9,10 @@ import { Router } from '@angular/router';
 })
 export class ContainerTypeViewComponent implements OnInit {
 
-  name:string;
-  description:string;
+  name:string = "";
+  description:string = "";
 
-  page:number;
+  page:number = 0;
   entry:number = 5;
 
 
@@ -37,28 +37,61 @@ export class ContainerTypeViewComponent implements OnInit {
   }
 
   onNewClick() {
-
+    this.containerTypes.push(new ContainerType());
   }
 
   onSaveClick() {
-
+    for(let item of this.containerTypes) {
+      this.httpClient.post<ContainerType>(this.containerTypeAPI, item).subscribe((response) => {
+        console.log(response);
+      })
+    };
   }
 
-  onDangerClick() {
-
+  onDangerClick(id: number) {
+    this.httpClient.delete(this.containerTypeAPI + "/" + this.containerTypes[id].name)
+      .subscribe((response) => {
+        console.log(response);
+      });
+    this.containerTypes.splice(id % this.containerTypes.length, 1);       
   }
   onSearchClick() {
+    var ps = new HttpParams();
+    ps = ps.append("n",this.name);
+    ps = ps.append("d", this.description);
+    ps = ps.append("pageNumber", this.page.toString());
+    ps = ps.append("entries", this.entry.toString());
 
+    this.httpClient.get<ContainerType[]>(this.containerTypeAPI + "/all-params", {params : ps})
+      .subscribe((response) => {
+        this.containerTypes = response;
+      });
   }
 
   onPreviousClick() {
+    this.page -= 1;
 
+    if(this.page < 0)
+      this.page = 0;
+
+    this.getContainerTypes(this.page);
+    if(this.containerTypes.length == 0)
+    {
+      this.page += 1;
+      this.getContainerTypes(this.page);
+    }
   }
 
   onNextClick() {
+    this.page += 1;
 
+    this.getContainerTypes(this.page);
+    if(this.containerTypes.length == 0)
+    {
+      this.page = 0;
+      this.getContainerTypes(this.page);
+    }
   }
-
 }
 
 export class ContainerType {
