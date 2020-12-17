@@ -23,10 +23,10 @@ public class CMSSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .mvcMatchers("/hello")
                     .permitAll()
-                .mvcMatchers("/api/types").hasRole("ADMIN")
-                .mvcMatchers("/api/entries").authenticated()
-                .mvcMatchers("/api/containers").authenticated()
-                .mvcMatchers("/api/mediums").authenticated()
-                .anyRequest().permitAll();
+                .mvcMatchers("/api/types").permitAll()
+                .mvcMatchers("/api/entries").permitAll()
+                .mvcMatchers("/api/containers").permitAll()
+                .mvcMatchers("/api/mediums").permitAll()
+                .anyRequest().permitAll().and().csrf().disable().cors();
     }
 }
