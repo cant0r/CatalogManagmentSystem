@@ -10,13 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContainerViewComponent implements OnInit {
 
-  name: string;
-  capacity: string;
-  location: string;
-  type: string;
+  name: string = "";
+  capacity: number = 10000;
+  location: string = "";
+  type: string = "";
 
-
-  page:number;
+  page:number = 0;
   entry:number = 5;
 
   containerAPI: string;
@@ -42,26 +41,65 @@ export class ContainerViewComponent implements OnInit {
   }
 
   onNewClick() {
-
+    var c = new Container();
+    c.type = new ContainerType();    
+    this.containers.push(c);
   }
 
   onSaveClick() {
-
+    for(let item of this.containers) {
+      this.httpClient.post<Container>(this.containerAPI, item).subscribe((response) => {
+        console.log(response);
+      })
+    };
   }
 
-  onDangerClick() {
-
+  onDangerClick(id: number) {
+    this.httpClient.delete(this.containerAPI + "/" + this.containers[id].id)
+    .subscribe((response) => {
+      console.log(response);
+    });
+    this.containers.splice(id % this.containers.length, 1);
   }
   onSearchClick() {
+    var ps = new HttpParams();
+    ps = ps.append("n",this.name);
+    ps = ps.append("l", this.location);
+    ps = ps.append("c", this.capacity.toString());
+    ps = ps.append("t", this.type);
+    ps = ps.append("pageNumber", this.page.toString());
+    ps = ps.append("entries", this.entry.toString());
 
+    this.httpClient.get<Container[]>(this.containerAPI + "/all-params", {params : ps})
+      .subscribe((response) => {
+        this.containers = response;
+      });
   }
 
   onPreviousClick() {
+    this.page -= 1;
+
+    if(this.page < 0)
+      this.page = 0;
+
+    this.getContainerTypes(this.page);
+    if(this.containers.length == 0)
+    {
+      this.page += 1;
+      this.getContainerTypes(this.page);
+    }
 
   }
 
   onNextClick() {
+    this.page += 1;
 
+    this.getContainerTypes(this.page);
+    if(this.containers.length == 0)
+    {
+      this.page = 0;
+      this.getContainerTypes(this.page);
+    }
   }
 
 }

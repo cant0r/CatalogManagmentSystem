@@ -7,6 +7,7 @@
     <table class="table table-hover">
         <thead>
             <tr class="">
+                <th class="w-5">Id</th>
                 <th class="w-25" >Név</th>
                 <th class="w-25">Kapacitás</th>
                 <th class="w-25">Hely</th>
@@ -19,11 +20,12 @@
         </thead>
         <tbody>  
             <tr>
+                <th class="w-5"></th>
                 <th class="w-25">
                     <input type="text" [(ngModel)]="name" class="form-control" placeholder="név">
                 </th>
                 <th class="w-25">
-                    <input type="text" [(ngModel)]="capacity" class="form-control" placeholder="kapacitás">
+                    <input type="number" [(ngModel)]="capacity" class="form-control" placeholder="kapacitás">
                 </th>
                 <th class="w-25">
                     <input type="text" [(ngModel)]="location" class="form-control" placeholder="hely">
@@ -32,17 +34,19 @@
                 <th class="w-25">
                     <input type="text"[(ngModel)]="type"  class="form-control" placeholder="típus">
                 </th>
-                <th  class="w-50">
+                <th  class="w-25">
                     
                     <button type="button" (click)="onSearchClick()" class="btn btn-info">Keresés</button>
                 </th>
             </tr>       
-            <tr *ngFor="let container of containers">
+            <tr *ngFor="let container of containers; let i = index">
+
+                <th class="w-5">{{container.id}}</th>
                 <th class="w-25">
                     <input type="text" class="form-control" [(ngModel)]="container.name" value="{{container.name}}" placeholder="név">
                 </th>
                 <th class="w-25">
-                    <input type="text" class="form-control" [(ngModel)]="container.capacity" value="{{container.capacity}}" placeholder="kapacitás">
+                    <input type="number" class="form-control" [(ngModel)]="container.capacity" value="{{container.capacity}}" placeholder="kapacitás">
                 </th>
                 <th class="w-25">
                     <input type="text" class="form-control" [(ngModel)]="container.location" value="{{container.location}}" placeholder="hely">
@@ -51,11 +55,12 @@
                     <input type="text" class="form-control" [(ngModel)]="container.type.name" value="{{container.type.name}}" placeholder="típus">
               
                 </th>
-                <th  class="w-50">
-                    <button type="button" (click)="onDangerClick()" class="btn btn-danger">Törlés</button>
+                <th  class="w-25">
+                    <button type="button" (click)="onDangerClick(i)" class="btn btn-danger">Törlés</button>
                 </th>
             </tr>     
             <tr>
+                <th class="w-5"></th>
                 <th class="w-25">
                 </th>
                 <th class="w-25">
@@ -65,7 +70,7 @@
 
                 <th class="w-25">
                 </th>
-                <th  class="w-50">
+                <th  class="w-25">
                     <button type="button" (click)="onPreviousClick()" class="btn btn-dark">Hátra</button>
                     <button type="button" (click)="onNextClick()" class="btn btn-dark">Előre</button>
                 </th>
