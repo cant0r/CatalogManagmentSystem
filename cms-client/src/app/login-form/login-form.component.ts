@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 })
 export class LoginFormComponent implements OnInit {
 
+  badResponse = false;
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {

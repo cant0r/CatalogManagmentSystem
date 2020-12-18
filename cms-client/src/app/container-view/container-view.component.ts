@@ -2,6 +2,8 @@ import { ContainerType } from './../container-type-view/container-type-view.comp
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { catchError} from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-container-view',
@@ -9,6 +11,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./container-view.component.css']
 })
 export class ContainerViewComponent implements OnInit {
+
+  badResponse = false;
+  saveSuccess = false;
 
   name: string = "";
   capacity: number = 10000;
@@ -48,10 +53,21 @@ export class ContainerViewComponent implements OnInit {
 
   onSaveClick() {
     for(let item of this.containers) {
-      this.httpClient.post<Container>(this.containerAPI, item).subscribe((response) => {
-        console.log(response);
-      })
+      this.httpClient.post<Container>(this.containerAPI, item)
+        .pipe(catchError(
+          (err): Observable<Container[]> => {
+              this.badResponse = true;
+              return null;
+          }
+        ))
+        .subscribe((response) => {
+          console.log(response);
+        })
     };
+    this.saveSuccess = true;
+    setTimeout(() => {
+      this.saveSuccess = false;
+    }, 1500);
   }
 
   onDangerClick(id: number) {
@@ -71,6 +87,12 @@ export class ContainerViewComponent implements OnInit {
     ps = ps.append("entries", this.entry.toString());
 
     this.httpClient.get<Container[]>(this.containerAPI + "/all-params", {params : ps})
+      .pipe(catchError(
+        (err): Observable<Container[]> => {
+            this.badResponse = true;
+            return null;
+        }
+      ))
       .subscribe((response) => {
         this.containers = response;
       });

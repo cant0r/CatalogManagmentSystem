@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 })
 export class ContainerTypeViewComponent implements OnInit {
 
+  badResponse = false;
+  saveSuccess = false;
+
   name:string = "";
   description:string = "";
 
@@ -42,10 +45,17 @@ export class ContainerTypeViewComponent implements OnInit {
 
   onSaveClick() {
     for(let item of this.containerTypes) {
-      this.httpClient.post<ContainerType>(this.containerTypeAPI, item).subscribe((response) => {
-        console.log(response);
+      if(item.name != "")
+        this.httpClient.post<ContainerType>(this.containerTypeAPI, item).subscribe((response) => {
+          console.log(response);
       })
+      else
+        this.badResponse = true;
     };
+    this.saveSuccess = true;
+    setTimeout(() => {
+      this.saveSuccess = false;
+    }, 1500);
   }
 
   onDangerClick(id: number) {

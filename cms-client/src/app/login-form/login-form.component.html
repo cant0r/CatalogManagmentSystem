@@ -1,3 +1,9 @@
+<div *ngIf="badResponse" class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Falióra!</strong> Hibásan töltötted ki a mezőket!.
+  <button type="button" class="close" (click)= "badResponse = false;">
+    <span>&times;</span>
+  </button>
+</div>
 <div class="container">
   <div class="d-flex h-100">
     <div class="col-md-6 align-self-center h-100">

@@ -2,13 +2,21 @@
     <button type="button" (click)="onNewClick()" class="btn btn-primary">Új</button>
     <button type="button" (click)="onSaveClick()" class="btn btn-warning">Mentés</button>
 </div>
-
+<div *ngIf="badResponse" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Falióra!</strong> Hibásan töltötted ki a mezőket!.
+    <button type="button" class="close" (click)="badResponse = false;">
+        <span>&times;</span>
+    </button>
+</div>
+<div *ngIf="saveSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Siker!</strong> Táblázat mentve!.
+</div>
 <div class=" table-responsive ">
     <table class="table table-hover">
         <thead>
             <tr class="">
                 <th class="w-5">Id</th>
-                <th class="w-25" >Név</th>
+                <th class="w-25">Név</th>
                 <th class="w-25">Kapacitás</th>
                 <th class="w-25">Hely</th>
 
@@ -18,7 +26,7 @@
                 <th class="w-50">Műveletek</th>
             </tr>
         </thead>
-        <tbody>  
+        <tbody>
             <tr>
                 <th class="w-5"></th>
                 <th class="w-25">
@@ -32,33 +40,37 @@
                 </th>
 
                 <th class="w-25">
-                    <input type="text"[(ngModel)]="type"  class="form-control" placeholder="típus">
+                    <input type="text" [(ngModel)]="type" class="form-control" placeholder="típus">
                 </th>
-                <th  class="w-25">
-                    
+                <th class="w-25">
+
                     <button type="button" (click)="onSearchClick()" class="btn btn-info">Keresés</button>
                 </th>
-            </tr>       
+            </tr>
             <tr *ngFor="let container of containers; let i = index">
 
                 <th class="w-5">{{container.id}}</th>
                 <th class="w-25">
-                    <input type="text" class="form-control" [(ngModel)]="container.name" value="{{container.name}}" placeholder="név">
+                    <input type="text" class="form-control" [(ngModel)]="container.name" value="{{container.name}}"
+                        placeholder="név">
                 </th>
                 <th class="w-25">
-                    <input type="number" class="form-control" [(ngModel)]="container.capacity" value="{{container.capacity}}" placeholder="kapacitás">
+                    <input type="number" class="form-control" [(ngModel)]="container.capacity"
+                        value="{{container.capacity}}" placeholder="kapacitás">
                 </th>
                 <th class="w-25">
-                    <input type="text" class="form-control" [(ngModel)]="container.location" value="{{container.location}}" placeholder="hely">
+                    <input type="text" class="form-control" [(ngModel)]="container.location"
+                        value="{{container.location}}" placeholder="hely">
                 </th>
                 <th class="w-25">
-                    <input type="text" class="form-control" [(ngModel)]="container.type.name" value="{{container.type.name}}" placeholder="típus">
-              
+                    <input type="text" class="form-control" [(ngModel)]="container.type.name"
+                        value="{{container.type.name}}" placeholder="típus">
+
                 </th>
-                <th  class="w-25">
+                <th class="w-25">
                     <button type="button" (click)="onDangerClick(i)" class="btn btn-danger">Törlés</button>
                 </th>
-            </tr>     
+            </tr>
             <tr>
                 <th class="w-5"></th>
                 <th class="w-25">
@@ -70,11 +82,11 @@
 
                 <th class="w-25">
                 </th>
-                <th  class="w-25">
+                <th class="w-25">
                     <button type="button" (click)="onPreviousClick()" class="btn btn-dark">Hátra</button>
                     <button type="button" (click)="onNextClick()" class="btn btn-dark">Előre</button>
                 </th>
-            </tr>                 
+            </tr>
         </tbody>
     </table>
 </div>

@@ -1,6 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Medium, MediumViewComponent } from '../medium-view/medium-view.component';
 
 @Component({
@@ -9,6 +11,9 @@ import { Medium, MediumViewComponent } from '../medium-view/medium-view.componen
   styleUrls: ['./entry-view.component.css']
 })
 export class EntryViewComponent implements OnInit {
+  badResponse = false;
+  saveSuccess = false;
+
   page:number = 0;
   entry:number = 5;
 
@@ -46,10 +51,21 @@ export class EntryViewComponent implements OnInit {
 
   onSaveClick() {
     for(let item of this.entries) {
-      this.httpClient.post<Entry>(this.containerAPI, item).subscribe((response) => {
-        console.log(response);
-      })
+      this.httpClient.post<Entry>(this.containerAPI, item)
+        .pipe(catchError(
+          (err): Observable<Entry[]> => {
+              this.badResponse = true;
+              return null;
+          }
+        ))
+        .subscribe((response) => {
+          console.log(response);
+        })
     };
+    this.saveSuccess = true;
+    setTimeout(() => {
+      this.saveSuccess = false;
+    }, 1500);
   }
 
   onDangerClick(id: number) {

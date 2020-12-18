@@ -2,6 +2,8 @@ import { Container } from './../container-view/container-view.component';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-medium-view',
@@ -9,6 +11,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./medium-view.component.css']
 })
 export class MediumViewComponent implements OnInit {
+
+  badResponse = false;
+  saveSuccess = false;
 
   page:number = 0;
   entry:number = 5;
@@ -47,10 +52,23 @@ export class MediumViewComponent implements OnInit {
 
   onSaveClick() {
     for(let item of this.mediums) {
-      this.httpClient.post<Medium>(this.containerAPI, item).subscribe((response) => {
-        console.log(response);
-      })
+      this.httpClient.post<Medium>(this.containerAPI, item)
+        .pipe(catchError(
+          (err): Observable<Medium[]> => {
+              this.badResponse = true;
+              return null;
+          }
+        ))
+        .subscribe((response) => {
+          console.log(response);
+        })
     };
+
+    this.saveSuccess = true;
+
+    setTimeout(() => {
+      this.saveSuccess = false;
+    }, 1500);
   }
 
   onDangerClick(id: number) {

@@ -2,17 +2,25 @@
     <button type="button" (click)="onNewClick()" class="btn btn-primary">Új</button>
     <button type="button" (click)="onSaveClick()" class="btn btn-warning">Mentés</button>
 </div>
-
+<div *ngIf="badResponse" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Falióra!</strong> Hibásan töltötted ki a mezőket!.
+    <button type="button" class="close" (click)="badResponse = false;">
+        <span>&times;</span>
+    </button>
+</div>
+<div *ngIf="saveSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Siker!</strong> Táblázat mentve!.
+</div>
 <div class=" table-responsive ">
     <table class="table table-hover">
         <thead>
             <tr class="">
-                <th class="w-25" >Név</th>
+                <th class="w-25">Név</th>
                 <th class="w-25">Leírás</th>
                 <th class="w-25">Műveletek</th>
             </tr>
         </thead>
-        <tbody>  
+        <tbody>
             <tr>
                 <th class="w-25">
                     <input type="text" [(ngModel)]="name" class="form-control" placeholder="név">
@@ -20,31 +28,34 @@
                 <th class="w-25">
                     <input type="text" [(ngModel)]="description" class="form-control" placeholder="leírás">
                 </th>
-                <th  class="w-25">
-                    
+                <th class="w-25">
+
                     <button type="button" (click)="onSearchClick()" class="btn btn-info">Keresés</button>
                 </th>
-            </tr>       
-            <tr *ngFor="let container of containerTypes; let i = index"> <th class="w-25">
-                <input type="text" class="form-control" [(ngModel)]="container.name" value="{{container.name}}" placeholder="név">
-            </th>
-            <th class="w-25">
-                <input type="text" class="form-control" [(ngModel)]="container.description" value="{{container.description}}" placeholder="leírás">
-            </th>
-                <th  class="w-25">
+            </tr>
+            <tr *ngFor="let container of containerTypes; let i = index">
+                <th class="w-25">
+                    <input type="text" class="form-control" [(ngModel)]="container.name" value="{{container.name}}"
+                        placeholder="név">
+                </th>
+                <th class="w-25">
+                    <input type="text" class="form-control" [(ngModel)]="container.description"
+                        value="{{container.description}}" placeholder="leírás">
+                </th>
+                <th class="w-25">
                     <button type="button" (click)="onDangerClick(i)" class="btn btn-danger">Törlés</button>
                 </th>
-            </tr>     
+            </tr>
             <tr>
                 <th class="w-25">
                 </th>
                 <th class="w-25">
                 </th>
-                <th  class="w-25">
+                <th class="w-25">
                     <button type="button" (click)="onPreviousClick()" class="btn btn-dark">Hátra</button>
                     <button type="button" (click)="onNextClick()" class="btn btn-dark">Előre</button>
                 </th>
-            </tr>                 
+            </tr>
         </tbody>
     </table>
 </div>
