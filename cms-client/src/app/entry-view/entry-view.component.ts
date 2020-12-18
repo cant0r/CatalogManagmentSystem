@@ -28,7 +28,7 @@ export class EntryViewComponent implements OnInit {
 
   constructor(private router: Router,
     private httpClient: HttpClient) {
-    this.containerAPI = "http://localhost:8080/cms/api/entries";
+    this.containerAPI = "http://fema:8080/cms/api/entries";
     this.headers = new HttpHeaders({
       'Authorization': 'Basic ' + sessionStorage.getItem('token')
     });
