@@ -1,5 +1,5 @@
 <div *ngIf="badResponse" class="alert alert-danger alert-dismissible fade show" role="alert">
-  <strong>Falióra!</strong> Hibásan töltötted ki a mezőket!.
+  <strong>Falióra!</strong> Hibás azonosítókat adtál meg!.
   <button type="button" class="close" (click)= "badResponse = false;">
     <span>&times;</span>
   </button>
@@ -14,9 +14,9 @@
           </div>
         <div class="form-signing col-xl-12">
             <label for="inputEmail" class="visually-hidden">Felhasználónév</label>
-            <input type="text" class="form-control" placeholder="Felhasználónév" required autofocus>
+            <input [(ngModel)]="username" type="text" class="form-control" placeholder="Felhasználónév" required autofocus>
             <label for="inputPassword" class="visually-hidden">Jelszó</label>
-            <input type="password" class="form-control" placeholder="Jelszó" required>
+            <input [(ngModel)]="password" type="password" class="form-control" placeholder="Jelszó" required>
             <button (click)="onClick()" class="w-100 btn btn-lg btn-primary" type="submit">Bejelentkezés</button>
           </div>
         <hr/>

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">CMS</a>
+        <a class="navbar-brand" href="#" (click)="logOut()" >CMS</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -28,7 +28,7 @@
     <button type="button" (click)="onSaveClick()" class="btn btn-warning">Mentés</button>
 </div>
 <div *ngIf="badResponse" class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>Falióra!</strong> Hibásan töltötted ki a mezőket!.
+    <strong>Falióra!</strong> Nincs jogosultságod vagy hibásan töltötted ki a mezőket!.
     <button type="button" class="close" (click)="badResponse = false;">
         <span>&times;</span>
     </button>
