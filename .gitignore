@@ -1,3 +1,5 @@
+api*.txt
+*.png
 application.properties
 HELP.md
 target/
