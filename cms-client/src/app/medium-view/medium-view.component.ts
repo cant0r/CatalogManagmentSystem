@@ -29,7 +29,7 @@ export class MediumViewComponent implements OnInit {
 
   constructor(private router: Router,
     private httpClient: HttpClient) {
-    this.containerAPI = "http://localhost:8080/api/mediums";
+    this.containerAPI = "http://localhost:8080/cms/api/mediums";
     this.headers = new HttpHeaders({
       'Authorization': 'Basic ' + sessionStorage.getItem('token')
     });

@@ -28,7 +28,7 @@ export class ContainerTypeViewComponent implements OnInit {
   constructor(private router: Router,
     private httpClient: HttpClient) {
 
-    this.containerTypeAPI = "http://localhost:8080/api/types";
+    this.containerTypeAPI = "http://localhost:8080/cms/api/types";
 
     this.headers = new HttpHeaders({
       'Authorization': 'Basic ' + sessionStorage.getItem('token')

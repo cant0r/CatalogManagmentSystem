@@ -15,7 +15,7 @@ export class LoginFormComponent implements OnInit {
   username: string = "";
   password: string = "";
 
-  loginAPI = "http://localhost:8080/api/login"
+  loginAPI = "http://localhost:8080/cms/api/login"
 
   constructor(private router: Router,
     private httpClient: HttpClient) { }

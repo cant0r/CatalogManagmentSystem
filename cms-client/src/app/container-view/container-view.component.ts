@@ -30,7 +30,7 @@ export class ContainerViewComponent implements OnInit {
 
   constructor(private router: Router,
     private httpClient: HttpClient) {
-    this.containerAPI = "http://localhost:8080/api/containers";
+    this.containerAPI = "http://localhost:8080/cms/api/containers";
     this.headers = new HttpHeaders({
       'Authorization': 'Basic ' + sessionStorage.getItem('token')
     });
