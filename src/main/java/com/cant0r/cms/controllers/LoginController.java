@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Base64;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/login")
 public class LoginController {
