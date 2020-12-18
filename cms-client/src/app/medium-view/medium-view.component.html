@@ -1,3 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">CMS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/container-types" aria-current="page" href="#">Típusok</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/containers" href="#">Konténerek</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/mediums" href="#">Tárolók</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/entries" href="#" tabindex="-1">Fájlok</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div class="d-flex justify-content-end">
     <button type="button" (click)="onNewClick()" class="btn btn-primary">Új</button>
     <button type="button" (click)="onSaveClick()" class="btn btn-warning">Mentés</button>
@@ -53,7 +78,7 @@
                 </th>
                 <th class="w-25">
                     <input type="number" class="form-control" [(ngModel)]="container.container.id"
-                        value="{{container.container.id}}" placeholder="tároló">
+                        value="{{container.container.id}}" placeholder="tároló" required>
                 </th>
                 <th class="w-25">
                     <button type="button" (click)="onDangerClick(i)" class="btn btn-danger">Törlés</button>
