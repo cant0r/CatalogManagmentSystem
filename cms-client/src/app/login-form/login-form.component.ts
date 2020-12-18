@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login-form',
@@ -10,14 +12,32 @@ export class LoginFormComponent implements OnInit {
 
   badResponse = false;
 
-  constructor(private router: Router) { }
+  username: string = "";
+  password: string = "";
+
+  loginAPI = "http://localhost:8080/api/login"
+
+  constructor(private router: Router,
+    private httpClient: HttpClient) { }
 
   ngOnInit(): void {
   }
 
   onClick() {
-    alert('Siker!')
-    this.router.navigateByUrl("/containers")
+    this.httpClient.post<Observable<boolean>>(this.loginAPI, {
+      username: this.username,
+      password: this.password
+    }).subscribe(isValid => {
+      if (isValid) {
+        sessionStorage.setItem(
+          'token',
+          btoa(this.username + ':' + this.password)
+        );
+        this.router.navigateByUrl("/containers")
+      } else {
+        this.badResponse = true;
+      }
+    });
   }
 
 }
