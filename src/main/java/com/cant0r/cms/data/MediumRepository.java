@@ -6,9 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface MediumRepository extends JpaRepository<Medium,Integer> {
 
     @Query(value = "SELECT m FROM Medium m JOIN m.container c WHERE m.name like %:name% and m.capacity <= :cap and c.name LIKE %:containerName%")
     Page<Medium> findAllByParams(@Param("cap")int cap,@Param("name")String name, @Param("containerName")String containerName, Pageable pageable);
 
+    List<Medium> findAllByContainer_Id(int id);
+
+    int deleteAllByContainer_Id(int id);
 }

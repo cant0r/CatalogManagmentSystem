@@ -20,8 +20,10 @@ public class Medium {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column
+    @NonNull
     private String name;
     @Column
+    @NonNull
     private int capacity;
 
     @ManyToOne

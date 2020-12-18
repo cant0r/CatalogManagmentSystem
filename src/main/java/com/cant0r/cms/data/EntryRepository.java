@@ -19,4 +19,6 @@ public interface EntryRepository extends JpaRepository<Entry, Integer> {
 
     List<Entry> findAllByMediumId(int id);
 
+    int deleteAllByMedium_Id(int id);
+
 }

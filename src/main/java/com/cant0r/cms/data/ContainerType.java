@@ -3,6 +3,7 @@ package com.cant0r.cms.data;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,6 +17,7 @@ public class ContainerType {
     @Id
     private String name;
     @Column
+    @NonNull
     public String description;
 
     @OneToMany

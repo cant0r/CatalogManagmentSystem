@@ -18,13 +18,17 @@ public class Container {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column
+    @NonNull
     private String name;
     @Column
+    @NonNull
     private String location;
     @Column
+    @NonNull
     private int capacity;
 
     @ManyToOne
+    @NonNull
     @JoinColumn(name = "type_id", referencedColumnName = "name")
     private ContainerType type;
 

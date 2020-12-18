@@ -18,8 +18,10 @@ public class Entry {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column
+    @NonNull
     private String name;
     @Column
+    @NonNull
     private int size;
 
     @ManyToOne
