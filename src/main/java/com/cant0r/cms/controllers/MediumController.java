@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+@Transactional
 @RequestMapping(value = "/api/mediums")
 public class MediumController {
     @Autowired
@@ -61,7 +63,7 @@ public class MediumController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteMediumByName(@PathVariable("id") int id) {
         try{
-            entryRepo.deleteAll(entryRepo.findAllByMediumId(id));
+            entryRepo.deleteAllByMedium_Id(id);
             repo.deleteById(id);
         }
         catch (Exception e) {
