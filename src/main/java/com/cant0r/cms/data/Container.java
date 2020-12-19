@@ -29,7 +29,7 @@ public class Container {
 
     @ManyToOne
     @NonNull
-    @JoinColumn(name = "type_id", referencedColumnName = "name")
+    //@JoinColumn(name="type_name")
     private ContainerType type;
 
 
