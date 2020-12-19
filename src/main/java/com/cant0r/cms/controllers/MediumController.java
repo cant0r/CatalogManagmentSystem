@@ -1,9 +1,6 @@
 package com.cant0r.cms.controllers;
 
-import com.cant0r.cms.data.Entry;
-import com.cant0r.cms.data.EntryRepository;
-import com.cant0r.cms.data.Medium;
-import com.cant0r.cms.data.MediumRepository;
+import com.cant0r.cms.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
