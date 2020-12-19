@@ -55,7 +55,7 @@
             <tr>
                 <th class="w-5"></th>
                 <th class="w-25">
-                    <input type="text" [(ngModel)]="name" class="form-control" placeholder="név">
+                    <input type="text" [(ngModel)]="name" class="form-control" placeholder="név" >
                 </th>
                 <th class="w-25">
                     <input type="number" [(ngModel)]="capacity" class="form-control" placeholder="kapacitás">
@@ -76,19 +76,19 @@
 
                 <th class="w-5">{{container.id}}</th>
                 <th class="w-25">
-                    <input type="text" class="form-control" [(ngModel)]="container.name" value="{{container.name}}"
+                    <input type="text" class="form-control" [(ngModel)]="container.name" value="{{container.name}}" (ngModelChange)="onUpdate(i);"
                         placeholder="név">
                 </th>
                 <th class="w-25">
-                    <input type="number" class="form-control" [(ngModel)]="container.capacity"
+                    <input type="number" class="form-control" [(ngModel)]="container.capacity" (ngModelChange)="onUpdate(i);"
                         value="{{container.capacity}}" placeholder="kapacitás">
                 </th>
                 <th class="w-25">
-                    <input type="text" class="form-control" [(ngModel)]="container.location"
+                    <input type="text" class="form-control" [(ngModel)]="container.location" (ngModelChange)="onUpdate(i);"
                         value="{{container.location}}" placeholder="hely">
                 </th>
                 <th class="w-25">
-                    <input type="text" class="form-control" [(ngModel)]="container.type.name" required
+                    <input type="text" class="form-control" [(ngModel)]="container.type.name" required (ngModelChange)="onUpdate(i);"
                         value="{{container.type.name}}" placeholder="típus">
 
                 </th>

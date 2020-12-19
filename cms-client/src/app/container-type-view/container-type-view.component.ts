@@ -24,6 +24,7 @@ export class ContainerTypeViewComponent implements OnInit {
 
   containerTypes: ContainerType[];
   containerTypeAPI: string;
+  containersToUpdate: Set<number>;
 
   constructor(private router: Router,
     private httpClient: HttpClient) {
@@ -34,6 +35,7 @@ export class ContainerTypeViewComponent implements OnInit {
       'Authorization': 'Basic ' + sessionStorage.getItem('token')
     });
 
+    this.containersToUpdate = new Set<number>();
 
   }
 
@@ -53,30 +55,30 @@ export class ContainerTypeViewComponent implements OnInit {
 
   onNewClick() {
     this.containerTypes.push(new ContainerType());
+    this.containersToUpdate.add(this.containerTypes.length-1);
   }
 
   onSaveClick() {
-    for (let item of this.containerTypes) {
-      if (item.name != "")
-        this.httpClient.post<ContainerType>(this.containerTypeAPI, item, { headers: this.headers})
+    for (let id of this.containersToUpdate) {
+      if (this.containerTypes[id].name != "")
+        this.httpClient.post<ContainerType>(this.containerTypeAPI, this.containerTypes[id], { headers: this.headers})
           .pipe(catchError((err): Observable<ContainerType[]> => {
             this.badResponse = true;
             return null;
           }))
           .subscribe((response) => {
-            console.log(response);
+            console.log(response);           
             if (!this.badResponse) {
               this.saveSuccess = true;
               setTimeout(() => {
                 this.saveSuccess = false;
-              }, 1500);
+              }, 2000);
             }
-          })
+          });
       else
         this.badResponse = true;
     };
-
-
+    this.containersToUpdate.clear();
   }
 
   onDangerClick(id: number) {
@@ -130,6 +132,10 @@ export class ContainerTypeViewComponent implements OnInit {
 
   logOut() {
     sessionStorage.setItem("token", "");
+  }
+
+  onUpdate(id: number){
+    this.containersToUpdate.add(id);
   }
 }
 
