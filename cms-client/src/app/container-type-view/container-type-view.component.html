@@ -61,11 +61,11 @@
             <tr *ngFor="let container of containerTypes; let i = index">
                 <th class="w-25">
                     <input type="text" class="form-control" [(ngModel)]="container.name" value="{{container.name}}"
-                        placeholder="név" required>
+                        placeholder="név" required (ngModelChange)="onUpdate(i);" >
                 </th>
                 <th class="w-25">
                     <input type="text" class="form-control" [(ngModel)]="container.description"
-                        value="{{container.description}}" placeholder="leírás">
+                        value="{{container.description}}" placeholder="leírás" (ngModelChange)="onUpdate(i);">
                 </th>
                 <th class="w-25">
                     <button type="button" (click)="onDangerClick(i)" class="btn btn-danger">Törlés</button>

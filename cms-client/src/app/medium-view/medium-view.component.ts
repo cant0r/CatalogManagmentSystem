@@ -26,6 +26,7 @@ export class MediumViewComponent implements OnInit {
 
   containerAPI: string;
   mediums: Medium[];
+  containersToUpdate: Set<number>;
 
   constructor(private router: Router,
     private httpClient: HttpClient) {
@@ -33,6 +34,7 @@ export class MediumViewComponent implements OnInit {
     this.headers = new HttpHeaders({
       'Authorization': 'Basic ' + sessionStorage.getItem('token')
     });
+    this.containersToUpdate = new Set<number>();
   }
 
   ngOnInit(): void {
@@ -58,11 +60,12 @@ export class MediumViewComponent implements OnInit {
     var m = new Medium();
     m.container = new Container();
     this.mediums.push(m);
+    this.containersToUpdate.add(this.mediums.length-1);
   }
 
   onSaveClick() {
-    for (let item of this.mediums) {
-      this.httpClient.post<Medium>(this.containerAPI, item, { headers: this.headers})
+    for (let id of this.containersToUpdate) {
+      this.httpClient.post<Medium>(this.containerAPI, this.mediums[id], { headers: this.headers})
         .pipe(catchError(
           (err): Observable<Medium[]> => {
             this.badResponse = true;
@@ -80,6 +83,7 @@ export class MediumViewComponent implements OnInit {
           }
         })
     };
+    this.containersToUpdate.clear();
   }
 
   onDangerClick(id: number) {
@@ -135,6 +139,9 @@ export class MediumViewComponent implements OnInit {
 
   logOut() {
     sessionStorage.setItem("token", "");
+  }
+  onUpdate(id: number){
+    this.containersToUpdate.add(id);
   }
 }
 

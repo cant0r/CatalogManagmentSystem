@@ -25,6 +25,7 @@ export class EntryViewComponent implements OnInit {
 
   containerAPI: string;
   entries: Entry[];
+  containersToUpdate: Set<number>;
 
   constructor(private router: Router,
     private httpClient: HttpClient) {
@@ -32,6 +33,7 @@ export class EntryViewComponent implements OnInit {
     this.headers = new HttpHeaders({
       'Authorization': 'Basic ' + sessionStorage.getItem('token')
     });
+    this.containersToUpdate = new Set<number>();
   }
 
   ngOnInit(): void {
@@ -57,11 +59,12 @@ export class EntryViewComponent implements OnInit {
     var e = new Entry();
     e.medium = new Medium();
     this.entries.push(e)
+    this.containersToUpdate.add(this.entries.length-1);
   }
 
   onSaveClick() {
-    for (let item of this.entries) {
-      this.httpClient.post<Entry>(this.containerAPI, item, { headers: this.headers})
+    for (let id of this.containersToUpdate) {
+      this.httpClient.post<Entry>(this.containerAPI, this.entries[id], { headers: this.headers})
         .pipe(catchError(
           (err): Observable<Entry[]> => {
             this.badResponse = true;
@@ -78,6 +81,7 @@ export class EntryViewComponent implements OnInit {
           }
         })
     };
+    this.containersToUpdate.clear();
   }
 
   onDangerClick(id: number) {
@@ -130,6 +134,9 @@ export class EntryViewComponent implements OnInit {
   }
   logOut() {
     sessionStorage.setItem("token", "");
+  }
+  onUpdate(id: number){
+    this.containersToUpdate.add(id);
   }
 }
 export class Entry {
