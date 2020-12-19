@@ -25,22 +25,22 @@ public class CMSSecurity extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .mvcMatchers("/api/types/all").authenticated()
                 .mvcMatchers("/api/types/all-params").authenticated()
-                .mvcMatchers("/api/types/").hasRole("ADMIN")
+                .mvcMatchers("/api/types/**").hasRole("ADMIN")
                 .mvcMatchers("/api/types").hasRole("ADMIN")
 
                 .mvcMatchers("/api/entries/all").authenticated()
                 .mvcMatchers("/api/entries/all-params").authenticated()
-                .mvcMatchers("/api/entries/").authenticated()
+                .mvcMatchers("/api/entries/**").authenticated()
                 .mvcMatchers("/api/entries").authenticated()
 
                 .mvcMatchers("/api/containers/all").authenticated()
                 .mvcMatchers("/api/containers/all-params").authenticated()
-                .mvcMatchers("/api/containers/").authenticated()
+                .mvcMatchers("/api/containers/**").authenticated()
                 .mvcMatchers("/api/containers").authenticated()
 
                 .mvcMatchers("/api/mediums/all").authenticated()
                 .mvcMatchers("/api/mediums/all-params").authenticated()
-                .mvcMatchers("/api/mediums/").authenticated()
+                .mvcMatchers("/api/mediums/**").authenticated()
                 .mvcMatchers("/api/mediums").authenticated()
 
                 .anyRequest().permitAll().and().csrf().disable().cors()
