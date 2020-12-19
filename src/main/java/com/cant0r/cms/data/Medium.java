@@ -27,7 +27,7 @@ public class Medium {
     private int capacity;
 
     @ManyToOne
-    @JoinColumn(name = "container_id", referencedColumnName = "id")
+  //  @JoinColumn(name = "container_id")
     @NonNull
     private Container container;
 
